@@ -1,0 +1,101 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# PyTorch and ML Models
+*.safetensors
+*.ckpt
+*.pth
+*.bin
+*.model
+*.pt
+models/
+checkpoints/
+LoRAs/
+*.safetensors
+
+# Generated Images
+generated_image_*.png
+output/
+results/
+images/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+tensorboard_logs/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Hugging Face cache
+.cache/
+huggingface/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Model weights (large files)
+*.safetensors
+*.bin
+*.ckpt
+*.pth
+*.pt
+*.model
