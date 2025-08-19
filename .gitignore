@@ -80,6 +80,9 @@ tensorboard_logs/
 .cache/
 huggingface/
 
+# xformers cache
+.xformers/
+
 # Temporary files
 *.tmp
 *.temp

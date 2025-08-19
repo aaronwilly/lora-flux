@@ -19,6 +19,13 @@ pipe.enable_model_cpu_offload()        # Move unused parts to CPU
 pipe.enable_attention_slicing()        # Process attention in chunks
 pipe.enable_sequential_cpu_offload()   # Alternative offloading method
 
+# Enable xformers for better memory efficiency
+try:
+    pipe.enable_xformers_memory_efficient_attention()
+    print("xformers enabled for memory efficiency")
+except Exception as e:
+    print(f"xformers not available: {e}")
+
 # Note: With sequential offloading, we don't move to CUDA
 # The pipeline will automatically manage GPU/CPU memory
 
@@ -37,7 +44,7 @@ pipe.enable_sequential_cpu_offload()   # Alternative offloading method
 # -----------------------------
 try:
     lora_repo = "strangerzonehf/Flux-Ultimate-LoRA-Collection"
-    lora_file = "Ghibli-Art.safetensors"  # example, you can pick any
+    lora_file = "3D‑Realism.safetensors"  # example, you can pick any
 
     # Download to local folder
     local_path = hf_hub_download(repo_id=lora_repo, filename=lora_file, local_dir="./LoRAs")
