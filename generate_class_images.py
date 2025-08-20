@@ -11,7 +11,7 @@ from PIL import Image
 def generate_class_images():
     """Generate class images for training"""
     
-    print("🚀 Starting class image generation...")
+    print("🚀 Starting enhanced class image generation...")
     
     # Load the base model
     print("📥 Loading Stable Diffusion 1.5...")
@@ -33,8 +33,8 @@ def generate_class_images():
     # Class prompt (what we want to generate)
     class_prompt = "man portrait, close up face"
     
-    # Number of class images to generate
-    num_class_images = 20
+    # Number of class images to generate (increased to 30)
+    num_class_images = 30
     
     # Create output directory
     os.makedirs("./dataset/class-images", exist_ok=True)
@@ -59,7 +59,7 @@ def generate_class_images():
         image.save(output_path)
         print(f"💾 Saved: {output_path}")
     
-    print("✅ Class image generation complete!")
+    print("✅ Enhanced class image generation complete!")
     print(f"📁 Generated {num_class_images} images in ./dataset/class-images/")
 
 if __name__ == "__main__":

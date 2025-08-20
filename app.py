@@ -43,14 +43,14 @@ except Exception as e:
 # Step 3: Load Style LoRA (Optional)
 # -----------------------------
 try:
-    # Load the locally trained eugene-lora from the new training
-    lora_path = "./LoRAs/eugene-face-new"  # New LoRA directory
+    # Load the enhanced eugene-lora from checkpoint-2000 (best checkpoint)
+    lora_path = "./LoRAs/eugene-face-enhanced/checkpoint-2200"  # Best checkpoint
 
-    # Load from the new LoRA directory
+    # Load from the enhanced LoRA directory
     pipe.load_lora_weights(lora_path, adapter_name="eugene0901_face")
-    print("✅ Eugene LoRA loaded successfully!")
+    print("✅ Enhanced Eugene LoRA (checkpoint-2000) loaded successfully!")
 except Exception as e:
-    print(f"⚠️ Warning: Could not load Eugene LoRA: {e}")
+    print(f"⚠️ Warning: Could not load Enhanced Eugene LoRA: {e}")
     print("Continuing without LoRA...")
 
 # -----------------------------                                                           
