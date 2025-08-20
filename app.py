@@ -1,5 +1,5 @@
 from huggingface_hub import hf_hub_download
-from diffusers import FluxPipeline
+from diffusers import StableDiffusionPipeline
 import torch
 from PIL import Image
 print(torch.version.cuda)       # should print 12.1 or 11.8
@@ -7,9 +7,9 @@ print(torch.cuda.is_available())
 # -----------------------------
 # Step 1: Load Base Model
 # -----------------------------
-# Using a reliable, publicly available model
-base_model = "black-forest-labs/FLUX.1-dev"
-pipe = FluxPipeline.from_pretrained(
+# Using the same model your LoRA was trained on
+base_model = "runwayml/stable-diffusion-v1-5"
+pipe = StableDiffusionPipeline.from_pretrained(
     base_model, 
     torch_dtype=torch.float16
 )
@@ -43,11 +43,11 @@ except Exception as e:
 # Step 3: Load Style LoRA (Optional)
 # -----------------------------
 try:
-    # Load the locally trained eugene-lora
-    lora_file = "checkpoint-1000/pytorch_lora_weights.safetensors"  # Your trained LoRA file
+    # Load the locally trained eugene-lora from the new training
+    lora_path = "./LoRAs/eugene-face-new"  # New LoRA directory
 
-    # Load from local LoRAs folder
-    pipe.load_lora_weights(f"./LoRAs/eugene-face/{lora_file}", adapter_name="eugene")
+    # Load from the new LoRA directory
+    pipe.load_lora_weights(lora_path, adapter_name="eugene0901_face")
     print("✅ Eugene LoRA loaded successfully!")
 except Exception as e:
     print(f"⚠️ Warning: Could not load Eugene LoRA: {e}")
@@ -57,11 +57,9 @@ except Exception as e:
 # Step 4: Define Prompts for Multiple Scenes
 # -----------------------------
 prompts = [
-    "Close-up portrait of <eugene>, in a cozy cafe, Ghibli style, beautiful lighting",
-    "Full-body portrait of <eugene>, futuristic city, cyberpunk style, neon lights",
-    # "Action pose of <eugene> as a warrior, medieval battle, oil painting style, dramatic lighting",
-    "Casual sitting pose of <eugene>, park scenery, photorealistic style, natural lighting",
-    # "Fantasy scene with <eugene>, dragon flying in background, cinematic lighting, epic composition"
+    "<eugene0901_face> man portrait, close-up face, smiling, short black hair, brown eyes, soft studio lighting",
+    "<eugene0901_face> realistic face, looking at camera, medium light, casual clothes, natural background",
+    "<eugene0901_face> cinematic portrait, sharp facial features, short hair, warm sunlight, detailed skin texture"
 ]
 
 # -----------------------------
