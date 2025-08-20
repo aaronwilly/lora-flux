@@ -1,9 +1,9 @@
 # Using your trained LoRA
-from diffusers import FluxPipeline
+from diffusers import StableDiffusionPipeline
 import torch
 
-pipe = FluxPipeline.from_pretrained(
-    "black-forest-labs/FLUX.1-dev",
+pipe = StableDiffusionPipeline.from_pretrained(
+    "runwayml/stable-diffusion-v1-5",
     torch_dtype=torch.float16
 )
 
@@ -14,14 +14,14 @@ pipe.enable_sequential_cpu_offload()
 
 
 
-pipe.load_lora_weights("./LoRAs/person1-face", adapter_name="personal")
+pipe.load_lora_weights("./LoRAs/eugene-face", adapter_name="personal")
 
 prompts = [
-    f"<person1> in a cozy cafe, beautiful lighting",
-    f"<person1> in a futuristic city, cyberpunk style",
-    f"<person1> as a warrior, medieval battle scene",
-    f"<person1> in a park, natural lighting",
-    f"<person1> in a fantasy world, magical atmosphere"
+    f"<eugene> in a cozy cafe, beautiful lighting",
+    f"<eugene> in a futuristic city, cyberpunk style",
+    f"<eugene> as a warrior, medieval battle scene",
+    f"<eugene> in a park, natural lighting",
+    f"<eugene> in a fantasy world, magical atmosphere"
 ]
 
 for i, prompt in enumerate(prompts):

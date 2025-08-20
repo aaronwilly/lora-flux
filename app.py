@@ -43,27 +43,25 @@ except Exception as e:
 # Step 3: Load Style LoRA (Optional)
 # -----------------------------
 try:
-    lora_repo = "strangerzonehf/Flux-Ultimate-LoRA-Collection"
-    lora_file = "3D‑Realism.safetensors"  # example, you can pick any
+    # Load the locally trained eugene-lora
+    lora_file = "checkpoint-1000/pytorch_lora_weights.safetensors"  # Your trained LoRA file
 
-    # Download to local folder
-    local_path = hf_hub_download(repo_id=lora_repo, filename=lora_file, local_dir="./LoRAs")
-    print("LoRA downloaded at:", local_path)                                                        
-    pipe.load_lora_weights(f"./LoRAs/{lora_file}", adapter_name="lora")
-    print("✅ LoRA loaded successfully!")
+    # Load from local LoRAs folder
+    pipe.load_lora_weights(f"./LoRAs/eugene-face/{lora_file}", adapter_name="eugene")
+    print("✅ Eugene LoRA loaded successfully!")
 except Exception as e:
-    print(f"⚠️ Warning: Could not load LoRA: {e}")
+    print(f"⚠️ Warning: Could not load Eugene LoRA: {e}")
     print("Continuing without LoRA...")
 
 # -----------------------------                                                           
 # Step 4: Define Prompts for Multiple Scenes
 # -----------------------------
 prompts = [
-    "Close-up portrait of a person, in a cozy cafe, Ghibli style, beautiful lighting",
-    "Full-body portrait of a person, futuristic city, cyberpunk style, neon lights",
-    "Action pose of a warrior, medieval battle, oil painting style, dramatic lighting",
-    "Casual sitting pose of a person, park scenery, photorealistic style, natural lighting",
-    "Fantasy scene with a person, dragon flying in background, cinematic lighting, epic composition"
+    "Close-up portrait of <eugene>, in a cozy cafe, Ghibli style, beautiful lighting",
+    "Full-body portrait of <eugene>, futuristic city, cyberpunk style, neon lights",
+    # "Action pose of <eugene> as a warrior, medieval battle, oil painting style, dramatic lighting",
+    "Casual sitting pose of <eugene>, park scenery, photorealistic style, natural lighting",
+    # "Fantasy scene with <eugene>, dragon flying in background, cinematic lighting, epic composition"
 ]
 
 # -----------------------------

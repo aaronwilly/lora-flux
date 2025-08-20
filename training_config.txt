@@ -1,7 +1,7 @@
-person_name: person1
-instance_prompt: <person1> in a photo
+person_name: eugene
+instance_prompt: <eugene> in a photo
 class_prompt: person in a photo
-num_images: 10
+num_images: 0
 resolution: 512
 train_batch_size: 1
 learning_rate: 0.0001
@@ -13,4 +13,5 @@ lr_warmup_steps: 0
 mixed_precision: fp16
 gradient_checkpointing: True
 use_xformers: True
+num_class_images: 50
 seed: 42

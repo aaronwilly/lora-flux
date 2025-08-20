@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Personalized LoRA Training Script using DreamBooth
-Train a LoRA adapter for your own face using FLUX.1-dev
+Train a LoRA adapter for your own face using Stable Diffusion 1.5
 """
 
 import os
@@ -109,21 +109,23 @@ def create_training_config(person_name, num_images):
         "mixed_precision": "fp16",
         "gradient_checkpointing": True,
         "use_xformers": True,
+        "num_class_images": 50,  # Default value
         "seed": 42
     }
     
     # Adjust for low VRAM
     if torch.cuda.get_device_properties(0).total_memory < 12e9:
-        config["resolution"] = 512
+        config["resolution"] = 256  # Reduced from 512 to save memory
         config["gradient_accumulation_steps"] = 2
-        print("Low VRAM detected - using 512 resolution")
+        config["num_class_images"] = 10  # Reduced from 50 to save memory
+        print("Low VRAM detected - using 256 resolution and 10 class images")
     
     return config
 
 def generate_training_command(config, script_path):
     """Generate the training command"""
     cmd = f"""accelerate launch {script_path} \\
-  --pretrained_model_name_or_path "black-forest-labs/FLUX.1-dev" \\
+  --pretrained_model_name_or_path "runwayml/stable-diffusion-v1-5" \\
   --instance_data_dir "./dataset/{config['person_name']}" \\
   --output_dir "./LoRAs/{config['person_name']}-face" \\
   --instance_prompt "{config['instance_prompt']}" \\
@@ -139,21 +141,23 @@ def generate_training_command(config, script_path):
   --mixed_precision "{config['mixed_precision']}" \\
   --gradient_checkpointing \\
   --use_xformers \\
+  --enable_xformers_memory_efficient_attention \\
   --seed {config['seed']} \\
-  --num_class_images 50 \\
+  --num_class_images {config['num_class_images']} \\
   --class_data_dir "./dataset/class-images" \\
-  --with_prior_preservation"""
+  --with_prior_preservation \\
+  --checkpointing_steps {config['save_steps']}"""
     
     return cmd
 
 def create_usage_example(config):
     """Create example of how to use the trained LoRA"""
     example_code = f'''# Using your trained LoRA
-from diffusers import FluxPipeline
+from diffusers import StableDiffusionPipeline
 import torch
 
-pipe = FluxPipeline.from_pretrained(
-    "black-forest-labs/FLUX.1-dev",
+pipe = StableDiffusionPipeline.from_pretrained(
+    "runwayml/stable-diffusion-v1-5",
     torch_dtype=torch.float16
 )
 
@@ -175,7 +179,7 @@ prompts = [
 ]
 
 for i, prompt in enumerate(prompts):
-    image = pipe(prompt=prompt, height=512, width=512, num_inference_steps=30).images[0]
+    image = pipe(prompt=prompt, height={config['resolution']}, width={config['resolution']}, num_inference_steps=30).images[0]
     image.save(f"personal_image_{{i+1}}.png")
 
 print("Personal LoRA generation complete!")
