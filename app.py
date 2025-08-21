@@ -30,25 +30,16 @@ except Exception as e:
 # The pipeline will automatically manage GPU/CPU memory
 
  
-
-# -----------------------------
-# Step 2: Load Personalized LoRA (Face Identity)
-# -----------------------------
-# personal_lora_repo = "your-username/your-personal-lora"  # Replace with your DreamBooth/face LoRA
-# personal_lora_file = "personal-face.safetensors"
-# hf_hub_download(repo_id=personal_lora_repo, filename=personal_lora_file, local_dir="./LoRAs")
-# pipe.load_lora_weights(f"./LoRAs/{personal_lora_file}", adapter_name="lora")
-
 # -----------------------------
 # Step 3: Load Style LoRA (Optional)
 # -----------------------------
 try:
-    # Load the enhanced eugene-lora from checkpoint-2000 (best checkpoint)
-    lora_path = "./LoRAs/eugene-face-enhanced/checkpoint-2200"  # Best checkpoint
+    # Load the enhanced eugene-lora from checkpoint-2200 (best checkpoint)
+    lora_path = "./LoRAs/eugene-face-enhanced/checkpoint-2000"  # Best checkpoint
 
     # Load from the enhanced LoRA directory
-    pipe.load_lora_weights(lora_path, adapter_name="eugene0901_face")
-    print("✅ Enhanced Eugene LoRA (checkpoint-2000) loaded successfully!")
+    # pipe.load_lora_weights(lora_path, adapter_name="eugene0901_face")
+    print("✅ Enhanced Eugene LoRA (checkpoint-2200) loaded successfully!")
 except Exception as e:
     print(f"⚠️ Warning: Could not load Enhanced Eugene LoRA: {e}")
     print("Continuing without LoRA...")
@@ -57,9 +48,9 @@ except Exception as e:
 # Step 4: Define Prompts for Multiple Scenes
 # -----------------------------
 prompts = [
-    "<eugene0901_face> man portrait, close-up face, smiling, short black hair, brown eyes, soft studio lighting",
-    "<eugene0901_face> realistic face, looking at camera, medium light, casual clothes, natural background",
-    "<eugene0901_face> cinematic portrait, sharp facial features, short hair, warm sunlight, detailed skin texture"
+    " man portrait, close-up face, smiling, short black hair, brown eyes, soft studio lighting",
+    " man realistic face, looking at camera, medium light, casual clothes, natural background",
+    "man cinematic portrait, sharp facial features, short hair, warm sunlight, detailed skin texture"
 ]
 
 # -----------------------------
