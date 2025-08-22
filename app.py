@@ -45,7 +45,7 @@ try:
     lora_path = "./LoRAs/eugene-face-enhanced/checkpoint-2000"  # Best checkpoint
 
     # Load from the enhanced LoRA directory
-    pipe.load_lora_weights(lora_path, adapter_name="eugene0901_face")
+    # pipe.load_lora_weights(lora_path, adapter_name="eugene0901_face")
     print("✅ Enhanced Eugene LoRA (checkpoint-2000) loaded successfully!")
 except Exception as e:
     print(f"⚠️ Warning: Could not load Enhanced Eugene LoRA: {e}")
@@ -55,9 +55,9 @@ except Exception as e:
 # Step 4: Define Prompts for Multiple Scenes
 # -----------------------------
 prompts = [
-    "A portrait of a <eugene0901_face>, mid-30s, short brown hair, light stubble, wearing a casual shirt, sitting outdoors in natural daylight, soft focus background, cinematic lighting, ultra-realistic, high detail, professional photography",
-    "Ultra-realistic photo of a <eugene0901_face> in his 30s, dark hair, short beard, wearing a gray sweater, standing on a city street during golden hour, natural sunlight illuminating his face, shallow depth of field, sharp focus, 8k, professional photography",
-    "A front-facing portrait of a <eugene0901_face>, early 30s, short brown hair, neatly trimmed beard, wearing a casual jacket, looking directly at the camera with natural expression, soft sunlight illuminating his face, subtle background bokeh, hyper-realistic, detailed skin texture, professional photography"
+    "A portrait of a man, mid-30s, short brown hair, light stubble, wearing a casual shirt, sitting outdoors in natural daylight, soft focus background, cinematic lighting, ultra-realistic, high detail, professional photography",
+    "Ultra-realistic photo of a man in his 30s, dark hair, short beard, wearing a gray sweater, standing on a city street during golden hour, natural sunlight illuminating his face, shallow depth of field, sharp focus, 8k, professional photography",
+    "A front-facing portrait of a man, early 30s, short brown hair, neatly trimmed beard, wearing a casual jacket, looking directly at the camera with natural expression, soft sunlight illuminating his face, subtle background bokeh, hyper-realistic, detailed skin texture, professional photography"
 ]
 
 # Comprehensive negative prompt to avoid common issues
